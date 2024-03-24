@@ -42,6 +42,8 @@ def find_server(task_size: int):
 
 @app.post("/create_vm")
 async def create_vm(vm: VM):
+    if vm.size > 128:
+        return {"result": "NOT_OK"}
     server = find_server(vm.size)
     if server is None:
         return {"result": "NOT_OK"}
